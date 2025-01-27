@@ -132,7 +132,7 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 1 }}
             className="text-center mt-12 text-sm text-gray-500"
           >
-            <p>Her gün 00:00'da yeni menü oluşturulur</p>
+            <p>Her gün 00:00&apos;da yeni menü oluşturulur</p>
           </motion.div>
         </div>
 
