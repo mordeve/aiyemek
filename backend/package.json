@@ -1,0 +1,33 @@
+{
+  "name": "gununyemegi-backend",
+  "version": "1.0.0",
+  "description": "Backend for Günün Yemeği - Daily AI-powered meal recommendations",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "keywords": [
+    "food",
+    "ai",
+    "recipes",
+    "turkish-cuisine"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.10",
+    "cors": "^2.8.5",
+    "date-fns": "^4.1.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
+}
