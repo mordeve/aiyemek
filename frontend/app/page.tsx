@@ -15,10 +15,14 @@ export default function Home() {
   useEffect(() => {
     const fetchMenu = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/menu/today`);
+        const response = await fetch('/api/menu/today', {
+          next: { revalidate: 0 }
+        });
+
         if (!response.ok) {
           throw new Error('Menü yüklenirken bir hata oluştu');
         }
+
         const data = await response.json();
         setMenu(data);
       } catch (err) {
