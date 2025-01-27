@@ -46,3 +46,7 @@ backend/dist
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
+
+.env.example
+.env
+.env.local
