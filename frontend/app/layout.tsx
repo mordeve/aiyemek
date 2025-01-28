@@ -1,8 +1,12 @@
+'use client';
+
 export const dynamic = 'force-dynamic';
 
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './routes';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -12,8 +16,8 @@ export const metadata: Metadata = {
     keywords: 'yemek tarifleri, günlük menü, türk mutfağı, yapay zeka, ai menü, yemek önerileri',
     authors: [{ name: 'Günün Yemeği' }],
     openGraph: {
-        title: 'Günün Yemeği - AI Powered Daily Menu',
-        description: 'Yapay zeka tarafından özenle hazırlanmış günlük menü önerileri',
+        title: 'Günün Tarifi - AI Destekli Günlük Menü Önerileri',
+        description: 'Yapay zeka tarafından özenle hazırlanmış günlük menü önerileri.',
         url: 'https://gununyemegi.com',
         siteName: 'Günün Yemeği',
         locale: 'tr_TR',
@@ -29,7 +33,7 @@ export default function RootLayout({
     return (
         <html lang="tr" suppressHydrationWarning>
             <body className={inter.className} suppressHydrationWarning>
-                {children}
+                <RouterProvider router={router} />
             </body>
         </html>
     );
