@@ -12,12 +12,12 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="tr">
+        <html lang="tr" suppressHydrationWarning>
             <head>
                 <title>{metadata.title as string}</title>
                 <meta name="description" content={metadata.description as string} />
             </head>
-            <body className={inter.className}>
+            <body className={inter.className} suppressHydrationWarning>
                 {children}
             </body>
         </html>

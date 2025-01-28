@@ -10,6 +10,11 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedMeal, setSelectedMeal] = useState<{ meal: Meal; title: string } | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const fetchMenu = async () => {
@@ -36,8 +41,15 @@ export default function Home() {
       }
     };
 
-    fetchMenu();
-  }, []);
+    if (mounted) {
+      fetchMenu();
+    }
+  }, [mounted]);
+
+  // Prevent hydration issues by not rendering until mounted
+  if (!mounted) {
+    return null;
+  }
 
   if (loading) {
     return (
@@ -78,35 +90,54 @@ export default function Home() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
-          {menu && Object.entries(menu).map(([mealTime, meal]) => {
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {menu && ['breakfast', 'lunch', 'dinner'].map((mealType, index) => {
+            const meal = menu[mealType as keyof typeof menu] as Meal;
+            const mealTitles = {
+              breakfast: 'Kahvaltı',
+              lunch: 'Öğle Yemeği',
+              dinner: 'Akşam Yemeği'
+            };
+            const mealTitle = mealTitles[mealType as keyof typeof mealTitles];
+
             return (
               <motion.div
-                key={mealTime}
+                key={mealType}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
                 className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
-                onClick={() => setSelectedMeal({ meal, title: mealTime })}
               >
                 <div className="p-6">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-2 capitalize">
-                    {mealTime}
+                  <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                    {mealTitle}
                   </h2>
-                  <p className="text-gray-600 mb-4">{meal.name}</p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-purple-600">
-                      {meal.calories} kalori
-                    </span>
-                    <button
-                      className="text-sm text-indigo-600 hover:text-indigo-800 transition-colors duration-200"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedMeal({ meal, title: mealTime });
-                      }}
-                    >
-                      Detaylar →
-                    </button>
+                  <h3 className="text-xl font-medium text-purple-600 mb-3">
+                    {meal.name}
+                  </h3>
+                  <p className="text-gray-600 mb-4">{meal.description}</p>
+
+                  <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                    <span>🕒 {meal.preparationTime}</span>
+                    <span>🔥 {meal.calories} kcal</span>
+                    <span>📊 {meal.difficulty}</span>
+                  </div>
+
+                  <div className="mb-4">
+                    <h4 className="font-medium text-gray-900 mb-2">Malzemeler</h4>
+                    <ul className="list-disc list-inside text-gray-600">
+                      {meal.ingredients.slice(0, 5).map((ingredient, i) => (
+                        <li key={i}>{ingredient}</li>
+                      ))}
+                      {meal.ingredients.length > 5 && (
+                        <li
+                          onClick={() => setSelectedMeal({ meal, title: mealTitle })}
+                          className="text-purple-600 cursor-pointer hover:text-purple-700 transition-colors duration-200 mt-2"
+                        >
+                          + {meal.ingredients.length - 5} daha...
+                        </li>
+                      )}
+                    </ul>
                   </div>
                 </div>
               </motion.div>
