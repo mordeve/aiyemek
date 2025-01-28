@@ -20,7 +20,7 @@ export default function Home() {
     const fetchMenu = async () => {
       try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-        const response = await fetch(`${apiUrl}/api/menu/today`, {
+        const response = await fetch(`${apiUrl}/api/menu/today/`, {
           headers: {
             'Cache-Control': 'no-cache',
             'Pragma': 'no-cache'
