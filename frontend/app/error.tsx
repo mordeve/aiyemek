@@ -1,20 +1,15 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useNavigate, useRouteError } from 'react-router-dom';
 
-export default function ErrorBoundary({
-    error,
-    reset,
-}: {
-    error: Error & { digest?: string };
-    reset: () => void;
-}) {
+export default function ErrorBoundary() {
+    const error = useRouteError() as Error;
+    const navigate = useNavigate();
+
     useEffect(() => {
         console.error('Application error:', error);
     }, [error]);
-
-    const router = useRouter();
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 to-pink-50">
@@ -25,13 +20,13 @@ export default function ErrorBoundary({
                 </p>
                 <div className="space-x-4">
                     <button
-                        onClick={() => reset()}
+                        onClick={() => window.location.reload()}
                         className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
                     >
                         Tekrar Dene
                     </button>
                     <button
-                        onClick={() => router.push('/')}
+                        onClick={() => navigate('/')}
                         className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
                     >
                         Ana Sayfaya Dön

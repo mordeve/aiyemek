@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { Meal, Menu, MealOptions } from './types';
+import { Menu, } from './types';
 
 export default function Home() {
   const router = useRouter();
