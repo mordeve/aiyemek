@@ -1,0 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+// existing code...
+// Keep your definitions here
+type Meal = { /* definition */ };
+type MealOptions = { /* definition */ };
+// existing code... 
