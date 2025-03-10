@@ -1,4 +1,5 @@
 import { Inter } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/react';
 import './globals.css';
 import { metadata } from './metadata';
 
@@ -19,6 +20,7 @@ export default function RootLayout({
             </head>
             <body className={inter.className} suppressHydrationWarning>
                 {children}
+                <Analytics />
             </body>
         </html>
     );
